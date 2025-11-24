@@ -1,0 +1,26 @@
+[project]
+name = "document-extractor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "openpyxl>=3.1.5",
+    "python-docx>=1.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.2",
+    "poethepoet>=0.38.0",
+    "pre-commit>=4.5.0",
+    "ruff>=0.14.6",
+    "types-openpyxl>=3.1.5.20250919",
+]
+
+[tool.poe.tasks]
+format = "uv run ruff format src"
+lint = "uv run ruff check --fix src"
+type-check = "uv run mypy --check-untyped-defs src"
+
+check = ["format", "lint", "type-check"]
