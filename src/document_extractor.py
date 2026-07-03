@@ -105,8 +105,12 @@ def main():
             continue
 
         print(f"Extracting {relative_path}")
-        save_hash(db, relative_path, hash)
-        save_extract_file(relative_path, output, extractor_cls(org_p).extract())
+        try:
+            save_extract_file(relative_path, output, extractor_cls(org_p).extract())
+            save_hash(db, relative_path, hash)
+        except Exception as e:
+            print(f"Failed to extract {relative_path}: {e}")
+            continue
 
     # 削除済みファイルの反映
     to_delete_paths = set(db.keys()) - existing_paths
