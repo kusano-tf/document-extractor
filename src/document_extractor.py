@@ -4,7 +4,14 @@ import shelve
 from pathlib import Path
 from typing import Iterator
 
-from extractor import DrawioExtractor, ExcelExtractor, ExtractorBase, WordExtractor
+from extractor import (
+    DocExtractor,
+    DrawioExtractor,
+    ExcelExtractor,
+    ExtractorBase,
+    WordExtractor,
+    XlsExtractor,
+)
 
 parser = argparse.ArgumentParser(
     description="各種ドキュメントからテキストを抽出するツール"
@@ -27,7 +34,9 @@ args = parser.parse_args()
 
 EXTRACTORS: dict[str, type[ExtractorBase]] = {
     ".xlsx": ExcelExtractor,
+    ".xls": XlsExtractor,
     ".docx": WordExtractor,
+    ".doc": DocExtractor,
     ".drawio": DrawioExtractor,
 }
 
